@@ -1,22 +1,17 @@
-# Node TIP Bot - OKCash
+# Node POS FARM STATUS BOT
 -----------------------
 
 # Changes
-#### Added Bleutrade and Cryptonator.
-#### Configured for OKCash http://www.okcash.co/
-###Join us at:
-```
-irc.freenode.org #okcash
-```
+#### Added total.
+#### Configured for POSFARM
 
 # Donations
-* BTC `1CNcko4ppGe7P3oJDZW98Cn7Vtpo19korc`
-* OK `PVW3MoRApp5kyZekyoepwHxdb9F8vW2oPh`
+* BTC `1Gq1BznkH1p8e1FePJh6K1XbeEAozLxq6N`
 
 # Installation
-To install node-tip-bot simply clone this repo and install dependencies:
+To install this heavily modified node-tip-bot simply clone this repo and install dependencies:
 ```bash
-git clone https://github.com/oktoshi/node-tip-bot
+git clone https://github.com/POSFarm/node-tip-bot
 cd node-tip-bot
 npm install
 ```
