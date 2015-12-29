@@ -1,7 +1,7 @@
 {
   "name": "node-tip-bot",
   "version": "1.0.1",
-  "description": "node.js based tipping bot for okcash",
+  "description": "node.js based bot",
   "main": "bin/tipbot",
   "dependencies": {
     "irc": "~0.3.6",
@@ -23,17 +23,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oktoshi/node-tip-bot"
+    "url": "https://github.com/POSFarm/node-tip-bot"
   },
   "author": "upgradeadvice - forked from https://github.com/upgradeadvice/node-tip-bot",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/oktoshi/node-tip-bot/issues"
+    "url": "https://github.com/POSFarm/node-tip-bot/issues"
   },
-  "homepage": "https://github.com/oktoshi/node-tip-bot",
+  "homepage": "https://github.com/POSFarm/node-tip-bot",
   "keywords": [
     "altcoin",
-    "okcash",
     "mue",
     "node",
     "tip",
