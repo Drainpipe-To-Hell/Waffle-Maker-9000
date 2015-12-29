@@ -861,7 +861,36 @@ client.addListener('message', function(from, channel, message) {
                     }
                 });
                 break;
+case 'total':
+                coin.getBalance(user, settings.coin.min_confirmations, function(err, balance) {
+                    if (err) {
+                        winston.error('Error in !balance command', err);
+                        client.say(channel, settings.messages.error.expand({
+                            name: from
+                        }));
+                        return;
+                    }
 
+                    var balance = typeof(balance) == 'object' ? balance.result : balance;
+
+                    coin.getBalance(user, 0, function(err, unconfirmed_balance) {
+                        if (err) {
+                            winston.error('Error in !balance command', err);
+                            client.say(channel, settings.messages.balance.expand({
+                                balance: balance,
+                            }));
+                            return;
+                        }
+                        var user = from.toLowerCase();
+                        var unconfirmed_balance = typeof(unconfirmed_balance) == 'object' ? unconfirmed_balance.result : unconfirmed_balance;
+
+                        client.say(channel, settings.messages.balance_unconfirmed.expand({
+                            balance: balance,
+                            unconfirmed: unconfirmed_balance - balance
+                        }));
+                    });
+                });
+                break;
             case 'balance':
                 var user = from.toLowerCase();
                 coin.getBalance(user, settings.coin.min_confirmations, function(err, balance) {
