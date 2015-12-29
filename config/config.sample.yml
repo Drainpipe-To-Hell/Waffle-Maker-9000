@@ -60,6 +60,8 @@ cryptsy:
   enabled: false
   coin: OK
   url: http://pubapi.cryptsy.com/api.php?method=singlemarketdata&marketid=69
+total:
+  enabled: true
 cryptonator:
   enabled: true
   coin: OK
@@ -77,6 +79,9 @@ git:
   channels:
     - '#okcash'
 commands:
+  total:
+    pm: true
+    channel: true
   commands:
     pm: true
     channel: false
@@ -156,6 +161,7 @@ messages:
   no_funds: 'Sorry %name%, you dont have enough funds (you are %short% %short_name% short)'
   not_identified: '%name%: You need to be identified with NickServ to use this command.'
   tipped: '%from% Tipped %to% with %amount% %short_name%! "/msg %nick% commands" to claim.'
+  total: '%short_name% has a total in wallet balance of %balance% %short_name%.'
   balance: '%name% has %balance% %short_name%.'
   balance_unconfirmed: '%name% has %balance% %short_name% (unconfirmed: %unconfirmed% %short_name%)'
   deposit_address: '%name%, your deposit address is %address%'
