@@ -862,7 +862,7 @@ client.addListener('message', function(from, channel, message) {
                 });
                 break;
 case 'total':
-                coin.getBalance(user, settings.coin.min_confirmations, function(err, balance) {
+                coin.getBalance(settings.coin.min_confirmations, function(err, balance) {
                     if (err) {
                         winston.error('Error in !balance command', err);
                         client.say(channel, settings.messages.error.expand({
