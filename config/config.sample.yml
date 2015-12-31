@@ -12,7 +12,7 @@ login:
   realname: node.js rpc tipping bot
   nickserv_password: yourpass
 channels:
-  - '#BotChannel'
+  - '#POSFarm'
 log:
   file: bot.log
 rpc:
@@ -33,14 +33,14 @@ webadmin:
   users:
     admin: your-pasword
 urlget:
-  enabled: true
+  enabled: false
   channels:
     - '#okcash'
 joke:
-  enabled: true
+  enabled: false
   url: http://api.icndb.com/jokes/random
 random:
-  enabled: true
+  enabled: false
   url: http://www.iheartquotes.com/api/v1/random?format=json&max_lines=1
 allcoin:
   enabled: false
@@ -49,11 +49,11 @@ allcoin:
 allcoin2:
   url: https://www.allcoin.com/api2/pair/
 btc:
-  enabled: true
+  enabled: false
   coin: BTC
   url: https://btc-e.com/api/3/ticker/btc_usd
 bleutrade:
-  enabled: true
+  enabled: false
   coin: OK
   url: https://bleutrade.com/api/v2/public/getmarketsummary?market=OK_BTC
 cryptsy:
@@ -61,9 +61,9 @@ cryptsy:
   coin: OK
   url: http://pubapi.cryptsy.com/api.php?method=singlemarketdata&marketid=69
 total:
-  enabled: true
+  enabled: false
 cryptonator:
-  enabled: true
+  enabled: false
   coin: OK
   url: https://www.cryptonator.com/api/full/ok-btc
 bittrex:
@@ -80,8 +80,8 @@ git:
     - '#okcash'
 commands:
   total:
-    pm: true
-    channel: true
+    pm: false
+    channel: false
   commands:
     pm: false
     channel: false
@@ -121,7 +121,7 @@ commands:
     rain_on_last_active: 0 # amount in seconds. rain tips will fall only on users active within x seconds. leave 0
   balance:
     pm: false
-    channel: true
+    channel: false
   withdraw:
     pm: false
     channel: false
@@ -133,13 +133,13 @@ commands:
     channel: false
   block:
     pm: false
-    channel: true
+    channel: false
   diff:
     pm: false
-    channel: true
+    channel: false
   networkhps:
     pm: false
-    channel: true
+    channel: false
   info:
     pm: false
     channel: false
@@ -147,6 +147,7 @@ commands:
     pm: false
     channel: false
 messages:
+  mcurrent: 'New stake of  %mcurrent% %short_name% has just occurred' 
   ticker: '%name% The current %coin% price at AllCoin. %coin%/BTC: %trade_price% - Volume: BTC: %exchange_volume% - %coin%: %type_volume%'
   tickererr: '%name% There was an error in the request either the AIP is down or %coin% dose not exist on AllCoin'
   bleutrade: '%name% The current %coin% price at Bleutrade. %coin%/BTC: %price% - Volume: %volume%'
