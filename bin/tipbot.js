@@ -1009,3 +1009,27 @@ case 'total':
             }
       });
 });
+        setTimeout(function(){
+            var oldVar = 0;
+            setInterval(function(){
+                coin.getInfo(function(err, get_info) {
+                    if (err) {
+                        winston.error('Error in !getinfo command', err);
+                        client.say('#POSFarm', settings.messages.error.expand({
+                            name: from
+                        }));
+                        return;
+                    }
+                    var stake = JSON.stringify(get_info['stake']);
+                    var balance = JSON.stringify(get_info['balance']);
+                    var test = Number(stake) + Number(balance);
+                    var test2 = test - oldVar;
+                    if (test2 != 0){
+                        winston.info("Proof of stake found");
+                        client.say('#POSFarm', "Proof of stake occurred! Reward: "+test2+" ");
+                        oldVar = test;
+                    }
+                });
+            }, 5000);
+ 
+        }, 15000);
