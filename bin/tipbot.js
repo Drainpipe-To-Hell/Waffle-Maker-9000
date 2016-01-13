@@ -1009,8 +1009,8 @@ case 'total':
             }
       });
 });
-        setTimeout(function(){
-            var oldVar = 0;
+ setTimeout(function(){
+            var oldBalance = 0;
             setInterval(function(){
                 coin.getInfo(function(err, get_info) {
                     if (err) {
@@ -1022,12 +1022,19 @@ case 'total':
                     }
                     var stake = JSON.stringify(get_info['stake']);
                     var balance = JSON.stringify(get_info['balance']);
-                    var test = Number(stake) + Number(balance);
-                    var test2 = test - oldVar;
-                    if (test2 != 0){
-                        winston.info("Proof of stake found");
-                        client.say('#POSFarm', "Proof of stake occurred! Reward: "+test2+" ");
-                        oldVar = test;
+                    var currentBalance = Number(stake) + Number(balance);
+                    var newBalance = currentBalance - oldBalance;
+                    if (newBalance > 0) {
+                        if (stake <= 0){
+                            winston.info("Deposit entered");
+                            client.say('#channel', "Deposit of "+newBalance+" XMG has occurred");
+                            oldBalance = newBalance;
+                        }
+                        if (stake > 0){
+                            winston.info("Proof of stake found");
+                            client.say('#POSFarm', "Proof of stake occurred! Reward: "+newBalance+" ");
+                            oldBalance = newBalance;
+                        }
                     }
                 });
             }, 5000);
