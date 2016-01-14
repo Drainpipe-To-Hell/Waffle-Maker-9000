@@ -1027,11 +1027,13 @@ case 'total':
                     if (newBalance > 0) {
                         if (stake <= 0){
                             winston.info("Deposit entered");
-                            client.say('#channel', "Deposit of "+newBalance+" XMG has occurred");
+                            client.say('#channel', "Deposit of "+newBalance+" has occurred");
+                            client.say('#posfarm', "Deposit of "+newBalance+" has occurred");
                             oldBalance = newBalance;
                         }
                         if (stake > 0){
                             winston.info("Proof of stake found");
+                            client.say('#channel', "Proof of stake occurred! Reward: "+newBalance+" ");
                             client.say('#POSFarm', "Proof of stake occurred! Reward: "+newBalance+" ");
                             oldBalance = newBalance;
                         }
