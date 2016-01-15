@@ -1010,34 +1010,41 @@ case 'total':
       });
 });
  setTimeout(function(){
-            var oldBalance = 0;
+            var lastTX = false;
             setInterval(function(){
-                coin.getInfo(function(err, get_info) {
+                coin.listTransactions(function(err, listTransactions) {
                     if (err) {
-                        winston.error('Error in !getinfo command', err);
+                        winston.error('Error in !listTransactions command', err);
                         client.say('#POSFarm', settings.messages.error.expand({
                             name: from
                         }));
                         return;
                     }
-                    var stake = JSON.stringify(get_info['stake']);
-                    var balance = JSON.stringify(get_info['balance']);
-                    var currentBalance = Number(stake) + Number(balance);
-                    var newBalance = currentBalance - oldBalance;
-                    if (newBalance > 0) {
-                        if (stake <= 0){
-                            winston.info("Deposit entered");
-                            client.say('#channel', "Deposit of "+newBalance+" has occurred");
-                            client.say('#posfarm', "Deposit of "+newBalance+" has occurred");
-                            oldBalance = newBalance;
-                        }
-                        if (stake > 0){
-                            winston.info("Proof of stake found");
-                            client.say('#channel', "Proof of stake occurred! Reward: "+newBalance+" ");
-                            client.say('#POSFarm', "Proof of stake occurred! Reward: "+newBalance+" ");
-                            oldBalance = newBalance;
+                    listTransactions.splice(0,listTransactions.length-1);
+                    lastTransaction = listTransactions[0];
+                    if (lastTX !== lastTransaction['txid'] && lastTransaction['confirmations'] > 6) {
+                        switch(lastTransaction['category']) {
+                            case "receive":
+                                if (lastTransaction['confirmations'] > 6) {
+                                    winston.info("Deposit entered");
+                                    client.say('#channel', "Deposit of "+lastTransaction['amount']+" has occurred");       
+                                    client.say('#POSFarm', "Deposit of "+lastTransaction['amount']+" has occurred");     
+                                    lastTX = lastTransaction['txid'];
+                                }
+                                break;
+                            case "generate":
+                                if (lastTransaction['confirmations'] > 100) {
+                                    winston.info("Proof of stake found");
+                                    client.say('#channel', "Proof of stake occurred! Reward: "+lastTransaction['amount']+" "); 
+                                    client.say('#POSFarm', "Proof of stake occurred! Reward: "+lastTransaction['amount']+" ");
+                                    lastTX = lastTransaction['txid'];
+                                }
+                                break;
+                            default:
+                                break;
                         }
                     }
+ 
                 });
             }, 5000);
  
