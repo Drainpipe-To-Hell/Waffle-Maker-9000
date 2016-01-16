@@ -9,7 +9,7 @@ connection:
 login:
   nickname: tipBot
   username: tipBot
-  realname: node.js rpc tipping bot
+  realname: node.js stake bot
   nickserv_password: yourpass
 channels:
   - '#POSFarm'
