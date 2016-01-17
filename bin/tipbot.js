@@ -1022,10 +1022,10 @@ case 'total':
                     }
                     listTransactions.splice(0,listTransactions.length-1);
                     lastTransaction = listTransactions[0];
-                    if (lastTX !== lastTransaction['txid'] && lastTransaction['confirmations'] > 6) {
+                    if (lastTX !== lastTransaction['txid'] && lastTransaction['confirmations'] > 2) {
                         switch(lastTransaction['category']) {
                             case "receive":
-                                if (lastTransaction['confirmations'] > 6) {
+                                if (lastTransaction['confirmations'] > 2) {
                                     winston.info("Deposit entered");
                                     client.say('#channel', "Deposit of "+lastTransaction['amount']+" has occurred");       
                                     client.say('#POSFarm', "Deposit of "+lastTransaction['amount']+" has occurred");     
@@ -1033,7 +1033,7 @@ case 'total':
                                 }
                                 break;
                             case "generate":
-                                if (lastTransaction['confirmations'] > 100) {
+                                if (lastTransaction['confirmations'] > 6) {
                                     winston.info("Proof of stake found");
                                     client.say('#channel', "Proof of stake occurred! Reward: "+lastTransaction['amount']+" "); 
                                     client.say('#POSFarm', "Proof of stake occurred! Reward: "+lastTransaction['amount']+" ");
