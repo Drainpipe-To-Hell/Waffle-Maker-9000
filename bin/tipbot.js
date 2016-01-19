@@ -1036,7 +1036,9 @@ case 'total':
                                 if (lastTransaction['confirmations'] > 6) {
                                     winston.info("Proof of stake found");
                                     client.say('#channel', "Proof of stake occurred! Reward: "+lastTransaction['amount']+" "); 
+                                    client.say('#channel', "TXID: "+lastTransaction['amount']+" "); 
                                     client.say('#POSFarm', "Proof of stake occurred! Reward: "+lastTransaction['amount']+" ");
+                                    client.say('#POSFarm', "TXID: "+lastTransaction['amount']+" ");
                                     lastTX = lastTransaction['txid'];
                                 }
                                 break;
