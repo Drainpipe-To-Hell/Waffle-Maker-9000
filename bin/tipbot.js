@@ -1035,10 +1035,8 @@ case 'total':
                             case "generate":
                                 if (lastTransaction['confirmations'] > 6) {
                                     winston.info("Proof of stake found");
-                                    client.say('#channel', "Proof of stake occurred! Reward: "+lastTransaction['amount']+" "); 
-                                    client.say('#channel', "TXID: "+lastTransaction['amount']+" "); 
-                                    client.say('#POSFarm', "Proof of stake occurred! Reward: "+lastTransaction['amount']+" ");
-                                    client.say('#POSFarm', "TXID: "+lastTransaction['amount']+" ");
+                                    client.say('#channel', "Proof of stake occurred! Reward: "+lastTransaction['fee']+" TXID: "+lastTransaction['txid']+" "); 
+                                    client.say('#POSFarm', "Proof of stake occurred! Reward: "+lastTransaction['fee']+" TXID: "+lastTransaction['txid']+" ");
                                     lastTX = lastTransaction['txid'];
                                 }
                                 break;
