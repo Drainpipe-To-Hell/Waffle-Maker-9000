@@ -1032,13 +1032,18 @@ case 'total':
                                     lastTX = lastTransaction['txid'];
                                 }
                                 break;
-                            case "generate":
+                            case "send":
+							if (lastTransaction['fee'] < 0) {
                                 if (lastTransaction['confirmations'] > 6) {
                                     winston.info("Proof of stake found");
                                     client.say('#channel', "Proof of stake occurred! Reward: "+lastTransaction['fee']+" TXID: "+lastTransaction['txid']+" "); 
                                     client.say('#POSFarm', "Proof of stake occurred! Reward: "+lastTransaction['fee']+" TXID: "+lastTransaction['txid']+" ");
                                     lastTX = lastTransaction['txid'];
                                 }
+								if (lastTransaction['fee'] > 0) {
+									winston.info("withdrawl occurred");
+								}
+							}
                                 break;
                             default:
                                 break;
