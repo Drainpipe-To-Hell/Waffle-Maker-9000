@@ -1015,7 +1015,7 @@ case 'total':
                 coin.listTransactions(function(err, listTransactions) {
                     if (err) {
                         winston.error('Error in !listTransactions command', err);
-                        client.say('#POSFarm', settings.messages.error.expand({
+                        client.say('#CloudStakers', settings.messages.error.expand({
                             name: from
                         }));
                         return;
@@ -1028,7 +1028,7 @@ case 'total':
                                 if (lastTransaction['confirmations'] > 2) {
                                     winston.info("Deposit entered");
                                     client.say('#channel', "Deposit of "+lastTransaction['amount']+" has occurred");       
-                                    client.say('#POSFarm', "Deposit of "+lastTransaction['amount']+" has occurred");     
+                                    client.say('#CloudStakers', "Deposit of "+lastTransaction['amount']+" has occurred");     
                                     lastTX = lastTransaction['txid'];
                                 }
                                 break;
@@ -1037,7 +1037,7 @@ case 'total':
                                 	if (lastTransaction['confirmations'] > 6) {
                                 	    winston.info("Proof of stake found");
                                 	    client.say('#channel', "Proof of stake occurred! Reward: "+lastTransaction['fee']+" TXID: "+lastTransaction['txid']+" "); 
-                        		    client.say('#POSFarm', "Proof of stake occurred! Reward: "+lastTransaction['fee']+" TXID: "+lastTransaction['txid']+" ");
+                        		    client.say('#CloudStakers', "Proof of stake occurred! Reward: "+lastTransaction['fee']+" TXID: "+lastTransaction['txid']+" ");
                                 	    lastTX = lastTransaction['txid'];
                                 	}
 					if (lastTransaction['fee'] < 0) {
