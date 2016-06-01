@@ -1,9 +1,9 @@
-# Node POS FARM STATUS BOT
+# Node FARM STATUS BOT
 -----------------------
 
 # Changes
 #### Added total.
-#### Configured for POSFARM
+#### Configured for Farming
 
 # Donations
 * BTC `1Gq1BznkH1p8e1FePJh6K1XbeEAozLxq6N`
@@ -11,8 +11,8 @@
 # Installation
 To install this heavily modified node-tip-bot simply clone this repo and install dependencies:
 ```bash
-git clone https://github.com/POSFarm/node-tip-bot
-cd node-tip-bot
+git clone https://github.com/Drainpipe-To-Hell/Waffle-Maker-9000
+cd Waffle-Maker-9000
 npm install
 ```
 
