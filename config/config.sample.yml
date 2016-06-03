@@ -129,6 +129,9 @@ commands:
   address:
     pm: false
     channel: false
+  dump:
+    pm: true
+    channel: false
   terms:
     pm: false
     channel: false
@@ -179,6 +182,7 @@ messages:
   networmhps: 'Current Networkhps: %networkhps% MH/s'
   networghps: 'Current Networkhps: %networkhps% GH/s'
   networthps: 'Current Networkhps: %networkhps% TH/s'
+  dumpkey: 'Key: %privkey%'
   getblock: 'Current Block: %block%'
   infok: 'Current Networkhps: %networkhps% KH/s - Current Difficulty: %diff% - Current Block: %block%'
   infom: 'Current Networkhps: %networkhps% MH/s - Current Difficulty: %diff% - Current Block: %block%'
