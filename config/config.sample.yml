@@ -9,10 +9,10 @@ connection:
 login:
   nickname: tipBot
   username: tipBot
-  realname: node.js stake bot
+  realname: CloudStakers <botname> stats
   nickserv_password: yourpass
 channels:
-  - '#POSFarm'
+  - '#cloudstakers'
   - '#channel'
 log:
   file: bot.log
