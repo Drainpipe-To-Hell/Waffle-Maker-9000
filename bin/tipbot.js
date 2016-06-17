@@ -4,7 +4,9 @@ var irc = require('irc'),
     yaml = require('js-yaml'),
     coin = require('node-altcoin'),
     tipbot = require('node-tipbot-api'),
+	fileExists = require('file-exists'),
     webadmin = require('../lib/webadmin/app');
+var god = ['GameGear', 'gamegear'];
 
 // check if the config file exists
 if (!fs.existsSync('./config/config.yml')) {
@@ -861,8 +863,16 @@ client.addListener('message', function(from, channel, message) {
                     }
                 });
                 break;
-case 'total':
-                coin.getBalance(settings.coin.min_confirmations, function(err, balance) {
+
+
+            case 'check':
+			var match = message.match(/^.?check (\S+)$/);
+                if (match === null || match.length < 2) {
+                    client.say(channel, 'Usage: !check <nickname>');
+                    return;
+                }
+                var user = match[1].toLowerCase();
+                coin.getBalance(user, settings.coin.min_confirmations, function(err, balance) {
                     if (err) {
                         winston.error('Error in !balance command', err);
                         client.say(channel, settings.messages.error.expand({
@@ -878,20 +888,22 @@ case 'total':
                             winston.error('Error in !balance command', err);
                             client.say(channel, settings.messages.balance.expand({
                                 balance: balance,
+                                name: user
                             }));
                             return;
                         }
-                        var user = from.toLowerCase();
+                        var user = match[1].toLowerCase();
                         var unconfirmed_balance = typeof(unconfirmed_balance) == 'object' ? unconfirmed_balance.result : unconfirmed_balance;
 
                         client.say(channel, settings.messages.balance_unconfirmed.expand({
                             balance: balance,
+                            name: user,
                             unconfirmed: unconfirmed_balance - balance
                         }));
                     });
                 });
                 break;
-            case 'balance':
+			  case 'balance':
                 var user = from.toLowerCase();
                 coin.getBalance(user, settings.coin.min_confirmations, function(err, balance) {
                     if (err) {
@@ -1022,35 +1034,58 @@ case 'total':
                     }
                     listTransactions.splice(0,listTransactions.length-1);
                     lastTransaction = listTransactions[0];
-                    if (lastTX !== lastTransaction['txid'] && lastTransaction['confirmations'] > 2) {
+                    if (lastTX !== lastTransaction['txid'] && lastTransaction['confirmations'] > 1) {
                         switch(lastTransaction['category']) {
-                            case "receive":
-                                if (lastTransaction['confirmations'] > 2) {
-                                    winston.info("Deposit entered");
-                                    client.say('#channel', "Deposit of "+lastTransaction['amount']+" has occurred");       
-                                    client.say('#CloudStakers', "Deposit of "+lastTransaction['amount']+" has occurred");     
-                                    lastTX = lastTransaction['txid'];
-                                }
+                            case "generate":
+                                	if (lastTransaction['confirmations'] > 1) {
+										var amount = lastTransaction['amount']
+										var to = lastTransaction['account']
+										var addr = lastTransaction['address']
+										var txid = lastTransaction['txid']
+										var conf = lastTransaction['confirmations']
+										var Default = '#cloudstakers'
+										var channel = '#channel'
+										if (fileExists('./generated/'+txid+'.txt')) {
+    										return;
+										}
+										var fs = require('fs');
+										var stream = fs.createWriteStream('./generated/'+txid+".txt");
+										stream.once('open', function(fd) {
+  											stream.write(txid);
+  											stream.end();
+										});
+										winston.info('Stake confirmed for: ' + addr + '! Reward: '+amount+' TXID: '+txid + ' Confirmations: ' + conf);
+                        		        client.say(Default, 'Stake confirmed for: ' + addr + ' Reward: ' + amount + ' TXID: ' + txid + ' Confirmations: ' + conf);
+										client.say(channel, 'Stake confirmed for: ' + addr + ' Reward: ' + amount + ' TXID: ' + txid + ' Confirmations: ' + conf);
+									}
                                 break;
-                            case "send":
-				if (lastTransaction['fee'] > 0.00000001) {
-                                	if (lastTransaction['confirmations'] > 6) {
-                                	    winston.info("Proof of stake found");
-                                	    client.say('#channel', "Proof of stake occurred! Reward: "+lastTransaction['fee']+" TXID: "+lastTransaction['txid']+" "); 
-                        		    client.say('#CloudStakers', "Proof of stake occurred! Reward: "+lastTransaction['fee']+" TXID: "+lastTransaction['txid']+" ");
-                                	    lastTX = lastTransaction['txid'];
-                                	}
-					if (lastTransaction['fee'] < 0) {
-						winston.info("withdrawl occurred");
-					}
-				}
-                                break;
-                            default:
+							case "immature":
+                                	if (lastTransaction['confirmations'] > 1) {
+										var amount = lastTransaction['amount']
+										var to = lastTransaction['account']
+										var addr = lastTransaction['address']
+										var txid = lastTransaction['txid']
+										var conf = lastTransaction['confirmations']
+										var Default = '#cloudstakers'
+										var channel = '#channel'
+										if (fs.existsSync('./immature'+txid+'.txt')) {
+    										return;
+										}
+										var fs = require('fs');
+										var stream = fs.createWriteStream(txid+".txt");
+										stream.once('open', function(fd) {
+  											stream.write(txid);
+  											stream.end();
+										});
+										winston.info('Proof of stake occurred for ' + addr + '! Reward: '+amount+' TXID: '+txid + ' Confirmations: ' + conf+' (not this is IMMATURE and not released yet)');
+                        		        client.say(Default, 'Proof of stake occurred for: ' + addr + ' Reward: ' + amount + ' TXID: ' + txid + ' Confirmations: ' + conf+' (not this is IMMATURE and not released yet)');
+										client.say(channel, 'Proof of stake occurred for: ' + addr + ' Reward: ' + amount + ' TXID: ' + txid + ' Confirmations: ' + conf+' (not this is IMMATURE and not released yet)');
+									}
                                 break;
                         }
                     }
  
                 });
-            }, 5000);
+            }, 10000);
  
         }, 15000);
