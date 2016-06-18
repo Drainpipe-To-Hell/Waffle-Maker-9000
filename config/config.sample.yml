@@ -170,6 +170,7 @@ messages:
   balance: '%name% has %balance% %short_name%.'
   balance_unconfirmed: '%name% has %balance% %short_name% (unconfirmed: %unconfirmed% %short_name%)'
   deposit_address: '%name%, your deposit address is %address%'
+  new_account: 'Conrats %name%, your account has been created and your CloudStaking address is %address%'
   withdraw_too_small: 'Sorry %name%, you need to withdraw at least %min_withdraw% %short_name% (you have %balance% %short_name%)'
   invalid_address: 'Sorry %name%, the address you specified is invalid (%address%).'
   tip_too_small: 'Sorry %from%, your tip to %to% (%amount% %short_name%) is too small (min. %min_tip% %short_name%).'
