@@ -11,7 +11,7 @@
 # Installation
 To install this heavily modified node-tip-bot simply clone this repo and install dependencies:
 ```bash
-git clone https://github.com/Drainpipe-To-Hell/Waffle-Maker-9000 && cd Waffle-Maker-9000 && mkdir generated && mkdir immature && npm install irc && npm install winston && npm install fs && npm install js-yaml && npm install node-altcoin && npm install node-tipbot-api & npm install express && npm install swig && npm install file-exists --save
+git clone https://github.com/Drainpipe-To-Hell/Waffle-Maker-9000 && npm install irc && npm install winston && npm install fs && npm install js-yaml && npm install node-altcoin && npm install node-tipbot-api & npm install express && npm install swig && npm install file-exists --save
 ```
 
 # Configuration
